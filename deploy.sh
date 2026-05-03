@@ -37,6 +37,8 @@ echo "🚚 Moving build to GREEN environment..."
 mkdir -p "$DEPLOY_DIR"
 rm -rf "$GREEN_DIR"
 mkdir -p "$GREEN_DIR"
+# Windows/Git Bash can intermittently deny folder mv across paths.
+# Copying contents into GREEN is more reliable for local simulation.
 cp -r "$TEMP_STAGING/." "$GREEN_DIR/"
 rm -rf "$TEMP_STAGING"
 
