@@ -31,6 +31,13 @@ graph LR
 
 ##  Step-by-Step Setup & Deployment
 
+### Windows shell notes
+If you are using PowerShell on Windows, run shell scripts through `sh` unless otherwise noted.
+- Setup: `./setup.sh` (this script is PowerShell-compatible in this repo)
+- Deploy: `sh deploy.sh`
+- Rollback: `sh rollback.sh`
+- Monitor: `sh monitor.sh`
+
 ### 1. Environment Preparation (IaC)
 To prepare your machine and install all necessary dependencies, run the automated setup script. This handles directory creation and environment config.
 ```bash
@@ -49,6 +56,7 @@ npm run dev
 Our pipeline is configured in `.github/workflows/ci.yml`. It runs automatically on every Push.
 - **Linting**: Checks code quality.
 - **Testing**: Runs 4 automated unit tests.
+- **Verification**: open a Pull Request from `dev` to `main` and confirm all checks pass in GitHub Actions.
 *(Insert Screenshot: Successful CI pipeline run in GitHub Actions tabs)*
 
 ### 4. Deployment & Blue-Green Simulation
