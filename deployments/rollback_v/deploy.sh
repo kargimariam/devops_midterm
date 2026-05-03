@@ -13,10 +13,10 @@ GREEN_DIR="$DEPLOY_DIR/green"
 ACTIVE_SYMLINK="production"
 TEMP_STAGING="green_staging"
 
-echo "Starting Deployment Simulation (Version: $VERSION)"
+echo "🎯 Starting Deployment Simulation (Version: $VERSION)"
 
 # 1. Clean and Prepare Staging Area
-echo "Preparing staging area..."
+echo "📦 Preparing staging area..."
 rm -rf "$TEMP_STAGING"
 mkdir -p "$TEMP_STAGING"
 
@@ -33,33 +33,31 @@ cp *.sh "$TEMP_STAGING/"
 [ -d "public" ] && cp -r public "$TEMP_STAGING/"
 
 # 3. Move from staging to GREEN
-echo "Moving build to GREEN environment..."
+echo "🚚 Moving build to GREEN environment..."
 mkdir -p "$DEPLOY_DIR"
 rm -rf "$GREEN_DIR"
 mkdir -p "$GREEN_DIR"
-# Windows/Git Bash can intermittently deny folder mv across paths.
-# Copying contents into GREEN is more reliable for local simulation.
 cp -r "$TEMP_STAGING/." "$GREEN_DIR/"
 rm -rf "$TEMP_STAGING"
 
 # 4. Health Check on Green environment
-echo "Running Health Check on GREEN..."
+echo "🔍 Running Health Check on GREEN..."
 sleep 2
-echo "Health Check Passed!"
+echo "✅ Health Check Passed!"
 
 # 5. BLUE-GREEN SWAP (The atomic switch)
-echo "Swapping traffic: BLUE -> GREEN"
+echo "🔄 Swapping traffic: BLUE -> GREEN"
 
 # Backup current blue if it exists for rollback
 if [ -d "$BLUE_DIR" ]; then
-    echo "Backing up current production (BLUE)..."
+    echo "💾 Backing up current production (BLUE)..."
     rm -rf "$DEPLOY_DIR/rollback_v"
     mkdir -p "$DEPLOY_DIR/rollback_v"
     cp -r "$BLUE_DIR/." "$DEPLOY_DIR/rollback_v/"
 fi
 
 # Move Green to Blue (Make it the primary)
-echo "Finalizing deployment..."
+echo "📦 Finalizing deployment..."
 rm -rf "$BLUE_DIR"
 mkdir -p "$BLUE_DIR"
 cp -r "$GREEN_DIR/." "$BLUE_DIR/"
@@ -70,7 +68,7 @@ rm -rf "$ACTIVE_SYMLINK"
 mkdir -p "$ACTIVE_SYMLINK"
 cp -r "$BLUE_DIR/." "$ACTIVE_SYMLINK/"
 
-echo "Deployment SUCCESSFUL! New version is now in PRODUCTION."
+echo "🚀 Deployment SUCCESSFUL! New version is now in PRODUCTION."
 
 # Rollback Instruction
 echo "------------------------------------------------"
