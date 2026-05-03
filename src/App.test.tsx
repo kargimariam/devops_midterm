@@ -57,6 +57,7 @@ describe('App Component', () => {
     await waitFor(() => {
       expect(screen.getByText(/Test Project/i)).toBeInTheDocument();
     });
+    expect(global.fetch).toHaveBeenCalledWith('/api/projects');
   });
 
   it('renders the "New Project" button', () => {
