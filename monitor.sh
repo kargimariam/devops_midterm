@@ -7,6 +7,8 @@ INTERVAL=60 # seconds
 
 echo "Starting Monitoring Service..."
 echo "Logging to $LOG_FILE"
+echo "Press Ctrl+C to stop monitoring."
+echo "Checking $URL every $INTERVAL seconds..."
 
 while true; do
   TIMESTAMP=$(date "+%Y-%m-%d %H:%M:%S")
